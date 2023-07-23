@@ -1,6 +1,8 @@
+@import '../../styles/breakpoints';
+@import '../../styles/variables';
 
 .searchArea {
-    background-color: #DDD;
+    background-color: $search-background;
     border-bottom: 1px solid #CCC;
     padding: 20px;
 }
@@ -9,13 +11,13 @@
     max-width: 1000px;
     margin: 0px auto 0px auto;
 
-    @media(max-width: 600px) {
+    @media(max-width: $mobile-xl) {
     max-width: 350px;
     }   
 }
 
 .searchBox {
-    background-color: #154268;
+    background-color: $border-search;
     padding: 20px 15px;
     border-radius: 5px;
     box-shadow: 1px, 1px, 1px, 0.3px rgba(0,0,0,0.2);
@@ -31,7 +33,7 @@
             border-radius: 5px;
             outline: 0;
             font-size: 15px;
-            color: #000;
+            color: $black-font;
             margin-right: 20px
         }
 
@@ -45,7 +47,7 @@
         }
 
         button {
-            background-color: #49AEEF;
+            background-color: $button-search;
             font-size: 15px;
             border: 0;
             border-radius: 5px;
@@ -67,7 +69,7 @@
         width: 25%;
         display: flex;
         align-items: center;
-        color: #000;
+        color: $black-font;
         text-decoration: none;
         height: 50px;
         margin-bottom: 10px;
@@ -81,14 +83,14 @@
             width: 40px;
             height: 24px;
             margin-right: 10px;
-            filter: opacity(0.7) drop-shadow(0 0 0 #6e6e6e);
+            filter: opacity(0.7) drop-shadow(0 0 0 $opacity-img-home);
         }
         
     }
 
 }
 
-@media(max-width: 600px) {
+@media(max-width: $mobile-xl) {
     .searchBox form {
         flex-direction: column;
         input {
@@ -124,19 +126,19 @@
     }
     
     .seeAllLink{
-        color: #000;
+        color: $black-font;
         text-decoration: none;
         font-weight: bold;
         display: inline-block;
         margin-top: 10px;
         transition: all ease 0.2s;
         &:hover {
-            color: gray
+            color: $hover
         }
     
     }
     
-    @media(max-width: 600px) {
+    @media(max-width: $mobile-xl) {
     
         &{
             margin: 10px;

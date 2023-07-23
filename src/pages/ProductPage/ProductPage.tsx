@@ -4,8 +4,9 @@ import { useParams } from 'react-router-dom';
 import useApi from '../../helpers/CodeStoreAPI'
 import { Slide } from 'react-slideshow-image';
 import 'react-slideshow-image/dist/styles.css'
-import { Button, CircularProgress } from '@mui/material';
+import { Alert, AlertTitle, Button, CircularProgress, Stack, Typography } from '@mui/material';
 import { ProductType } from '../../types/types';
+import DiscountIcon from '@mui/icons-material/Discount';
 
 
 function ProductPage() {
@@ -16,13 +17,19 @@ function ProductPage() {
 
     const [loading, setLoading] = useState(true)
     const [productInfo, setProductInfo] = useState({} as ProductType)
+    const [error, setError] = useState('')
+
+    
     
     useEffect(() => {
         const getProductInfo = async() => {
             const product = await api.getProduct(id!)
-            console.log(product)
-            setProductInfo(product)
-            console.log(product)
+            if(product.error) {
+                setError(product.error)
+                setLoading(false)
+                return
+            }                 
+            setProductInfo(product)            
             setLoading(false)
         }
         getProductInfo()
@@ -33,6 +40,14 @@ function ProductPage() {
     return (
 
         <div className={styles.pageContainer}>
+            {error && 
+                <Stack sx={{ width: '100%' }} spacing={2}>
+                    <Alert severity="error">
+                    <AlertTitle>Error</AlertTitle>
+                    {error} — <strong>check it out!</strong>
+                    </Alert>
+                </Stack>            
+            }
             <div className={styles.adArea}>
                 {loading && <CircularProgress/>}
                 
@@ -71,6 +86,28 @@ function ProductPage() {
                                 <hr/>
                                 <small>Category: {productInfo.product_type}</small>    
 
+                                {productInfo.variants && 
+                                    
+                                <div className={styles.discount}>
+                                {productInfo.variants[0].compare_at_price && 
+
+                                    <> 
+                                        <Typography variant="body2" color="text.secondary" sx={{'textDecoration': 'line-through'}} fontSize={'1.1rem'}> {`Price: $${productInfo.variants[0].compare_at_price}`}
+                                        </Typography>
+                                        <div className={styles.icon}>
+                                            <Typography variant="body2" color="text.primary" fontSize={'1rem'} marginRight='15px'>
+                                                {`${(((parseInt(productInfo.variants[0].compare_at_price) / parseInt(productInfo.variants[0].price))-1)*100).toFixed(0)}% OFF`}
+                                                
+                                            
+                                            </Typography>
+                                            <DiscountIcon />
+                                        </div>    
+                                    </>
+                                
+                                }
+                                </div>                    
+                                }
+
                             </div>
                         </div>                        
                     </div>
@@ -91,15 +128,7 @@ function ProductPage() {
                     </div>
 
                     <div>
-                        <Button>Buy Now</Button>
-
-                        <div className={styles.createdBy+styles.box+styles.boxPadding}>
-                        Created by:  
-                            <strong> Info</strong>
-                            <small>Info  </small>
-                            <small>Info: </small>      
-
-                        </div>
+                        <Button color='primary' variant='contained' sx={{margin: '10px'}} >Buy Now</Button>                        
                         
                     </div>
 

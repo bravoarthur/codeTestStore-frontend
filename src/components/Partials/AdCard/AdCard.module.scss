@@ -1,0 +1,8 @@
+@import "../../../styles/variables";
+
+.compareAtPrice {
+
+    display: flex;
+    color: $discount-icon;
+    justify-content: space-between;
+}

@@ -1,5 +1,6 @@
 
 type PriceType = {
+    compare_at_price:string,
     price: string    
 }
 

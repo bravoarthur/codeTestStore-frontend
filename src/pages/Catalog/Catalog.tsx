@@ -1,5 +1,5 @@
-import { Pagination, Stack, TablePagination } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { Alert, AlertTitle, Pagination, Stack, TablePagination } from '@mui/material';
+import { useEffect, useRef, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import AdCard from '../../components/Partials/AdCard/AdCard';
 import useApi from '../../helpers/CodeStoreAPI';
@@ -10,11 +10,15 @@ let timer: NodeJS.Timeout
 
 function Catalog() {
 
+    
+
     const api = useApi
 
     const navigate = useNavigate()
     const useQueryString = () => new URLSearchParams(useLocation().search)
     const queryGetter = useQueryString()
+
+    const scroll = useRef<HTMLDivElement>(null);
 
     let limit = 20
     const [prodTotal, setProdTotal] = useState(0)
@@ -30,12 +34,13 @@ function Catalog() {
 
     const [resultOpacity, setResultOpacity] = useState(1)
     const [loading, setLoading] = useState(true)
+    const [error, setError] = useState('')
 
     const [query, setQuery] = useState(queryGetter.get('q') != null ? queryGetter.get('q') as string : '')
     const [cat, setCat] = useState(queryGetter.get('cat') !=null ? queryGetter.get('cat') as string : '')
 
     const currentPageHandler = (item: number) => {
-
+                
         if(item > currentPage) {
             setPageDirection(1)
             setCurrentPage(item)
@@ -52,23 +57,35 @@ function Catalog() {
 
 
     const getAdsList = async () => {
-        setLoading(true)
-                console.log(previousPageUrl)
+        setLoading(true)                
         const data = await api.getProd({cat, nextPage: pageDirection>0 ? nextPageUrl : previousPageUrl, q:query, limit})
-        console.log(data)
+        if(data.error) {
+            setError(data.error)
+            setResultOpacity(1)
+            setLoading(false)
+            return
+        }
         setProductsList(data.productsList)
         setNextPageUrl(data.nextPageUrl)
         setPreviousPageUrl(data.previousPage)
         setProdTotal(data.total)
         setResultOpacity(1)
         setLoading(false)
+        console.log(productsList)
+        
     }   
 
     useEffect(() => {
         const getCatList = async () => {
             const catList = await  api.getCategories()
+            if(catList.error) {
+                setError(catList.error)
+                
+                return
+            }
             setCatList(catList)
         }
+        
         getCatList()
     }, [api])
 
@@ -94,6 +111,8 @@ function Catalog() {
 
 
     useEffect(()=> {
+        
+        
         if(productsList.length > 0) {
             setPageCount(Math.ceil(prodTotal/limit))            
         } else {
@@ -103,30 +122,39 @@ function Catalog() {
    }, [prodTotal, productsList.length, limit])
 
 
-   useEffect(() => {        
+   useEffect(() => {    
+    scroll.current!.scrollIntoView({behavior: 'smooth'})     
         getAdsList()
     }, [currentPage])
 
-
+ 
     let pagination = []
     for(let i=1; i<=pageCount; i++) {
      pagination.push(i)
     }
 
-
     return (
 
-        <div className={styles.pageContainer}>
+        <div className={styles.pageContainer} ref={scroll}>
+
+            {error && 
+                <Stack sx={{ width: '100%' }} spacing={2}>
+                    <Alert severity="error">
+                    <AlertTitle>Error</AlertTitle>
+                    {error} — <strong>check it out!</strong>
+                    </Alert>
+                </Stack>            
+            }
             
             <div className={styles.adsArea}>
 
-                <div className={styles.leftSide}>
+                <div  className={styles.leftSide}>
 
-                    <form method='GET'>
+                    <form method='GET' >
                         <input type='text' name='query' placeholder='Search...' value={query} onChange={(event => setQuery(event.target.value))}/>
                         <div className={styles.filterName}>Category:</div>
                         <ul>
-                        <li className={cat ? `${styles.categoryItem} ` :` ${styles.categoryItem} ${styles.active}`}
+                            <li className={cat ? `${styles.categoryItem} ${styles.allCat} ` :` ${styles.categoryItem} ${styles.active} ${styles.allCat}`}
                             onClick={() =>  { 
                                 setCurrentPage(1)
                                 setCat('')}
@@ -163,8 +191,8 @@ function Catalog() {
                     </div>
 
                     <div className={styles.pagination}>
-                    {((prodTotal/limit)-currentPage)< 0  ? <div className={styles.cont}>. . .</div> : ''}
-                    {pagination.map ((item, index) => 
+                        {limit>prodTotal ? '' : ((prodTotal/limit)-currentPage)< 0  ? <div className={styles.cont}>. . .</div> : ''}
+                        {pagination.map ((item, index) => 
                             <div onClick={() => currentPageHandler(item)} className={item===currentPage ? `${styles.pagItem} ${styles.active}` : Math.abs(currentPage-item)>1 ? styles.hidden  : styles.pagItem} key={index} >{item}</div>
                             
                         )}
@@ -179,8 +207,3 @@ function Catalog() {
 
 export default Catalog;
 
-
-/*{pagination.map ((item, index) => 
-                            <div onClick={() => currentPageHandler(item)} className={item===currentPage ? `${styles.pagItem} ${styles.active}` : styles.pagItem} key={index} >{item}</div>
-                        )}
- */

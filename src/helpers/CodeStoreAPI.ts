@@ -7,7 +7,7 @@ type QType = {
     nextPage?: string,      
 }
 
-const BASE_API = 'http://localhost:3434'
+const BASE_API = 'http://192.168.0.3:3434'
 
 const apiFetchGet = async (endPoint: string, query: {}) => {    
     
@@ -17,10 +17,13 @@ const apiFetchGet = async (endPoint: string, query: {}) => {
             'Accept': 'application/json',
             'Content-Type': 'application/json',      
         },            
-    })    
-    const json = await res.json()    
-    console.log(json)
-    return json.data    
+    }).then( async (res) => {
+        const json = await res.json()
+        return json.data
+
+    }).catch(() => {return {error: 'Server is not Responding'}})
+
+    return res    
 }
 
 
@@ -38,8 +41,7 @@ const CodeStoreAPI = {
         return await apiFetchGet(`/api/product/${id}`, {}) 
     },
 
-    getProd: async (query: QType) => {
-        console.log(query)
+    getProd: async (query: QType) => {        
         return await apiFetchGet(`/api/catalogue`, {...query}) 
     }
 }

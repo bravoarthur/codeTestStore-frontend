@@ -8,7 +8,6 @@ import Menu from '../Menu/Menu';
 
 function AppbarHeader() {
 
-
     return ( 
         
         <Box sx={{ flexGrow: 1 }}>

@@ -1,22 +1,43 @@
+@import '../../styles/breakpoints';
+@import '../../styles/variables';
+
+
 .pageContainer {
 
-    max-width: 1000px;
-    margin: 0px auto 0px auto;
+    max-width: 1100px;
+    margin: 0px auto ;
+    
 
-    @media(max-width: 600px) {
-    max-width: 350px;
+    @media(max-width: $mobile-xl) {
+        display: flex;
+        justify-content: center;
+        width: 40px;
+        margin: auto;
     }
 }
 
 .adArea {
     display: flex;
     margin-top: 20px;
+    @media(max-width: 600px) {
+        width: 400px;
+        flex-direction: column-reverse;
+    }
 
     .box {
         background-color: #FFF;
         border-radius: 5px;
         box-shadow: 0px 0px 4px #999;
         margin-bottom: 20px;
+        height: 350px;
+
+        @media(max-width: $mobile-xl) {
+            width: 390px;
+            flex-direction: column;
+            height: 800px;
+            padding: 40px;
+            align-items: center;
+        }
     }
 
     .boxPadding {
@@ -26,6 +47,16 @@
     .leftSide {
         flex: 1;
         margin-right: 20px;
+
+        @media(max-width: $mobile-xl) {
+            align-items: center;
+            margin-right: 0;
+            display: flex;
+            width: 400px;
+            flex-direction: column;
+            height: 1200px;
+
+        }
 
         .box{
             display: flex;
@@ -43,12 +74,32 @@
                 background-size: cover;
                 height: 280px 
             }
+
+            @media(max-width: $mobile-xl) {
+                width: 250px;
+                height: 170px;
+                
+                
+                .eachSlide img {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    background-size: cover;
+                    height: 170px;
+                    width: 250px; 
+                }
+
+            }
+
+            
         }
 
         .adInfo { 
             flex: 1;
+            margin-right: 40px;
             .adName {
                 margin-bottom: 20px;
+                font-size: 15px;
                 h2 {
                     margin: 0;
                     margin-top: 20px;
@@ -59,6 +110,7 @@
             }
 
             .adDescription {
+                font-size: 14px;
                 small {
                     color: #999
                 }
@@ -74,7 +126,7 @@
     width: 250px;
 
     .price span {
-        color: #0000FF;
+        color: #0f0fc5;
         display: block;
         font-size: 27px;
         font-weight: bold;
@@ -91,56 +143,18 @@
     }
 }
 
-@media(max-width: 600px) {
-
-    .rightSide{
-
-        flex-direction: column;
-    }
 
 
-    .leftSide {
-        margin: 0;
+.icon {
+    color: $discount-icon;
+    display: flex;
+    flex-direction: row;
 
-        .adImage {
-            margin: 0px;
-            height: 320px;
-            width: 320px;
+}
 
-            .each-slide img {                
-                height: 320px 
-            }
-        }
-
-        .box {
-            width: 320px;
-            flex-direction: column;
-            margin: auto;
-            
-        }
-
-        .adInfo {
-            padding: 10px;
-        }
-
-    }
-
-    .rightSide {
-
-        width: auto;
-        margin-top: 20px;
-
-        .box {
-            width: 320px;
-            margin: auto;
-        }
-
-        .contactSeller {
-            width: 320px;
-            margin: 20px auto;
-        }
-
-    }
+.discount {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
     
-
 }

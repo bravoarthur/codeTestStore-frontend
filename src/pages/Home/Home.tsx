@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import {Link} from 'react-router-dom'
 import AdCard from '../../components/Partials/AdCard/AdCard';
 import { CategorieListType, ProductListType } from '../../types/types';
-import { Button } from '@mui/material';
+import { Alert, AlertTitle, Button, Stack } from '@mui/material';
 
 
 function Home() {
@@ -13,35 +13,53 @@ function Home() {
 
     const [catList, setCatList] = useState([] as CategorieListType)
     const [productList, setProductList] = useState([] as ProductListType)
+    const [error, setError] = useState('')
 
     useEffect(() => {
         const getCats = async () => {
             const cats = await api.getCategories()
-            setCatList(cats)            
+            if(cats.error) {
+                setError(cats.error)
+                return
+            }
+            
+            setCatList(cats) 
+                     
         }
         getCats()
     }, [api])
-
-    //AQUI VAI SER O LIMITADO A 6
+    
     useEffect(() => {
         const getRandom = async () => {
             const randomProducts = await api.getProd({limit:8})
-            
+            if(randomProducts.error) {
+                setError(randomProducts.error)
+                return
+            }           
             setProductList(randomProducts.productsList)
         }
         getRandom()
     }, [api])
 
+
     return (
 
         <div>
+
+            {error && 
+                <Stack sx={{ width: '100%' }} spacing={2}>
+                    <Alert severity="error">
+                    <AlertTitle>Error</AlertTitle>
+                    {error} — <strong>check it out!</strong>
+                    </Alert>
+                </Stack>            
+            }
             <div className={styles.searchArea}>
                 <div className={styles.pageContainer}>
                     <div className={styles.searchBox}>
-                        <form method="GET" action='/ads'>
-                            <input type="text" name="q" placeholder='Search on B-S'/>
-                            
-                            <Button>Search</Button>
+                        <form method="GET" action='/catalog'>
+                            <input type="text" name="q" placeholder='Search on CodeStore'/>                        
+                            <Button type='submit'>Search</Button>
 
                         </form>
                     </div>
