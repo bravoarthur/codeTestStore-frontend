@@ -6,7 +6,7 @@ function Header() {
 
     return (
         <div className={styles.headerBox}>
-            <AppbarHeader/>
+            <AppbarHeader />
         </div>
     );
 }

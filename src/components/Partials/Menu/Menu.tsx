@@ -30,13 +30,13 @@ function Menu() {
 
     const toggleDrawer = (anchor: Anchor, open: boolean) => (
         event: React.KeyboardEvent | React.MouseEvent
-        ) => {            
-            if (event.type === 'keydown' && ((event as React.KeyboardEvent).key === 'Tab' || (event as React.KeyboardEvent).key === 'Shift')) {
-                return;
-            }
+    ) => {
+        if (event.type === 'keydown' && ((event as React.KeyboardEvent).key === 'Tab' || (event as React.KeyboardEvent).key === 'Shift')) {
+            return;
+        }
 
         setState({ ...state, [anchor]: open });
-    }; 
+    };
 
     const list = (anchor: Anchor) => (
         <Box
@@ -48,63 +48,60 @@ function Menu() {
             <List className={styles.listItems}>
                 <Link to='/about'>
                     <ListItem disablePadding>
-                        
-                            <ListItemButton>
-                                <ListItemIcon>
-                                    <GroupsIcon/>
-                                </ListItemIcon>
-                                
-                                <ListItemText primary={'About Us'} />
 
-                            </ListItemButton>
-                        
+                        <ListItemButton>
+                            <ListItemIcon>
+                                <GroupsIcon />
+                            </ListItemIcon>
+
+                            <ListItemText primary={'About Us'} />
+
+                        </ListItemButton>
+
                     </ListItem>
                 </Link>
                 <Link to='/catalog'>
                     <ListItem disablePadding>
-                        
-                            <ListItemButton>
-                                <ListItemIcon>
-                                    <MenuBookIcon/> 
-                                </ListItemIcon>
-                                
-                                <ListItemText primary={'Catalog'} />
 
-                            </ListItemButton>
-                        
+                        <ListItemButton>
+                            <ListItemIcon>
+                                <MenuBookIcon />
+                            </ListItemIcon>
+
+                            <ListItemText primary={'Catalog'} />
+
+                        </ListItemButton>
+
                     </ListItem>
                 </Link>
-        
+
             </List>
             <Divider />
             <List className={styles.listItems}>
-                
-                    <Link to={'/'}>
-                        <ListItem disablePadding>
-                            <ListItemButton>
-                                <ListItemIcon>
-                                    <HomeIcon/>
-                                </ListItemIcon>
-                                <ListItemText primary={'Home Page'} />
-                            </ListItemButton>
-                        </ListItem>                    
-                    </Link>
-                
-          </List>
+
+                <Link to={'/'}>
+                    <ListItem disablePadding>
+                        <ListItemButton>
+                            <ListItemIcon>
+                                <HomeIcon />
+                            </ListItemIcon>
+                            <ListItemText primary={'Home Page'} />
+                        </ListItemButton>
+                    </ListItem>
+                </Link>
+
+            </List>
         </Box>
     );
-
-
-
 
     return (
 
         <div>
 
             <IconButton onClick={toggleDrawer('left', true)} edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
-                <MenuIcon  />
-            </IconButton>   
-                    
+                <MenuIcon />
+            </IconButton>
+
             <Drawer
                 anchor={'left'}
                 open={state['left']}
@@ -112,8 +109,8 @@ function Menu() {
             >
                 {list('left')}
             </Drawer>
-        
-             
+
+
         </div>
 
     );

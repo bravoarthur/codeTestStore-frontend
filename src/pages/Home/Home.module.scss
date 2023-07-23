@@ -1,9 +1,9 @@
-@import '../../styles/breakpoints';
-@import '../../styles/variables';
+@import "../../styles/breakpoints";
+@import "../../styles/variables";
 
 .searchArea {
     background-color: $search-background;
-    border-bottom: 1px solid #CCC;
+    border-bottom: 1px solid #ccc;
     padding: 20px;
 }
 
@@ -11,35 +11,36 @@
     max-width: 1000px;
     margin: 0px auto 0px auto;
 
-    @media(max-width: $mobile-xl) {
-    max-width: 350px;
-    }   
+    @media (max-width: $mobile-xl) {
+        max-width: 350px;
+    }
 }
 
 .searchBox {
     background-color: $border-search;
     padding: 20px 15px;
     border-radius: 5px;
-    box-shadow: 1px, 1px, 1px, 0.3px rgba(0,0,0,0.2);
+    box-shadow: 1px, 1px, 1px, 0.3px rgba(0, 0, 0, 0.2);
     display: flex;
 
     form {
         flex: 1;
         display: flex;
 
-        input, select {
+        input,
+        select {
             height: 40px;
             border: 0;
             border-radius: 5px;
             outline: 0;
             font-size: 15px;
             color: $black-font;
-            margin-right: 20px
+            margin-right: 20px;
         }
 
-        input{
+        input {
             flex: 1;
-            padding: 0 10px
+            padding: 0 10px;
         }
 
         select {
@@ -51,12 +52,11 @@
             font-size: 15px;
             border: 0;
             border-radius: 5px;
-            color: #FFF;
+            color: #fff;
             height: 40px;
             padding: 0 20px;
             cursor: pointer;
         }
-
     }
 }
 
@@ -76,7 +76,7 @@
         transition: all ease 0.2s;
 
         &:hover {
-            color: #999
+            color: #999;
         }
 
         img {
@@ -85,47 +85,42 @@
             margin-right: 10px;
             filter: opacity(0.7) drop-shadow(0 0 0 $opacity-img-home);
         }
-        
     }
-
 }
 
-@media(max-width: $mobile-xl) {
+@media (max-width: $mobile-xl) {
     .searchBox form {
         flex-direction: column;
         input {
             padding: 10px;
             margin-right: 0px;
             margin-bottom: 10px;
-        };
+        }
         select {
             width: 100%;
             margin-bottom: 10px;
         }
-
     }
 
     .categoryList .categoryItem {
         width: 50%;
-        padding: 10px
-    }    
-};
+        padding: 10px;
+    }
+}
 
 .homeArea {
     margin-bottom: 40px;
 
     h2 {
-        font-size: 20px
+        font-size: 20px;
     }
-    
+
     .list {
         display: flex;
         flex-wrap: wrap;
-          
-        
     }
-    
-    .seeAllLink{
+
+    .seeAllLink {
         color: $black-font;
         text-decoration: none;
         font-weight: bold;
@@ -133,21 +128,17 @@
         margin-top: 10px;
         transition: all ease 0.2s;
         &:hover {
-            color: $hover
+            color: $hover;
         }
-    
     }
-    
-    @media(max-width: $mobile-xl) {
-    
-        &{
+
+    @media (max-width: $mobile-xl) {
+        & {
             margin: 10px;
         }
-    
+
         .list .aditem {
             width: 50%;
-        }       
+        }
     }
 }
-
-

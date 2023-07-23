@@ -1,20 +1,17 @@
-
-
-*{
-  box-sizing: border-box;
+* {
+    box-sizing: border-box;
 }
 
 body {
-  margin: 0;
-  font-family: 'Open Sans', sans-serif;
-  background-color: #EEE;   
-  height: 100%; 
+    margin: 0;
+    font-family: "Open Sans", sans-serif;
+    background-color: #eee;
+    height: 100%;
 }
 
 .container {
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  overflow-x: hidden;
-  
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
 }

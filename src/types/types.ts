@@ -1,7 +1,7 @@
 
 type PriceType = {
-    compare_at_price:string,
-    price: string    
+    compare_at_price: string,
+    price: string
 }
 
 type ImageType = {

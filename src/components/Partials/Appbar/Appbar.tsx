@@ -8,12 +8,12 @@ import Menu from '../Menu/Menu';
 
 function AppbarHeader() {
 
-    return ( 
-        
+    return (
+
         <Box sx={{ flexGrow: 1 }}>
             <AppBar position="static">
                 <Toolbar variant="dense">
-                    <Menu/>
+                    <Menu />
                     <Link to='/' className={styles.title}>
                         <Typography variant="h6" color="inherit" component="div">
                             Code Store
