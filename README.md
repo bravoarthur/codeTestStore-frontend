@@ -11,4 +11,4 @@ The application needs .env with API_URL, this may be included when you run the e
 ## Searchbar 
 The Search Bar just find products with full match 
 
-# THe Project Next step is creating the unitary test
+### THe Project Next step is creating the unitary test
